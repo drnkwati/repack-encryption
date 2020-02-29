@@ -1,5 +1,4 @@
 <?php
-
 namespace Repack\Encryption;
 
 use RuntimeException;
@@ -257,6 +256,10 @@ class Encrypter
      */
     public static function throwEncryptException($string)
     {
+        if (class_implements('\Illuminate\Contracts\Encryption\EncryptException')) {
+            throw new \Illuminate\Contracts\Encryption\EncryptException($string);
+        }
+
         throw new RuntimeException($string);
     }
 
@@ -267,6 +270,10 @@ class Encrypter
      */
     public static function throwDecryptException($string)
     {
+        if (class_implements('\Illuminate\Contracts\Encryption\DecryptException')) {
+            throw new \Illuminate\Contracts\Encryption\DecryptException($string);
+        }
+
         throw new RuntimeException($string);
     }
 
